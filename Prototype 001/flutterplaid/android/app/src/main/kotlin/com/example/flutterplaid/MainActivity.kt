@@ -16,9 +16,9 @@ class MainActivity: FlutterActivity() {
 
         channel.setMethodCallHandler { call, result ->
 
-            if (call.method == "showToast"){
-                Toast.makeText(this, "I work",Toast.LENGTH_LONG).show()
-            }
+            val linkTokenConfiguration = linkTokenConfiguration {
+                token = "public-sandbox-e043851f-a3e1-4374-ad1d-b4c9f6323a84"
+                }
         }
     }
 }

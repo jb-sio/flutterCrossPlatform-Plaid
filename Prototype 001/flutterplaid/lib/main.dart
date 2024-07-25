@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var channel = MethodChannel("customeplaidlink");
+  var channel = const MethodChannel("customeplaidlink");
 
   showtost() {
     channel.invokeMethod("showToast");

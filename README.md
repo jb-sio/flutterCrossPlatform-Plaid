@@ -40,3 +40,17 @@ Research and Development repository for Flutter's Cross-Platform feature with Pl
    ```
 7. The `call.method` is the value passed to the channel from Dart/Flutter. If the parameter passed matches the Dart-passed value, it executes the task, which in our case is `showtoast`.
 8. Formatted `README.md`.
+
+### Commit: "Plaid Dependencies"
+
+1. Adding
+
+`dependencies {
+   implementation 'com.plaid.link:sdk-core:4.5.1'
+   }`
+
+directly to "android\app\build.gradle" Latest version was obtained from [Reference](https://search.maven.org/artifact/com.plaid.link/sdk-core) In future when the changes are done in the depensency refer the latest version and changes.
+
+2. Follow [Youtube](https://www.youtube.com/watch?v=oM7vL49I5tc)
+
+3. TBC
