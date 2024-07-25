@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,22 +28,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var channel = MethodChannel("customeplaidlink");
+
+  showtost() {
+    channel.invokeMethod("showToast");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Hello world',
-            )
-          ],
-        ),
-      ),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: showtost, child: const Text("showthing"))),
     );
   }
 }
