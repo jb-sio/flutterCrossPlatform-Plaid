@@ -74,3 +74,7 @@ android.nonFinalResIds=false` Have no idea why and what these do but it didn't t
 
 3. Going throught step 2 will help to configure the project for this Flutter/Kotlin Plaid system.
 4. Going to the Commit "Plaid Flutter/Kotlin" you can find the 'main.dart' and 'MainActivity.kt' files.
+
+### Commit-C006: "pubspec.yaml fixes"
+
+1. Ran "flutter pub get" and got some files fixed and new files generated.
