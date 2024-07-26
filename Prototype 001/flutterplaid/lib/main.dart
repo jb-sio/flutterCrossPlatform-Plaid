@@ -1,48 +1,45 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Plaid Integration Example')),
+        body: const Center(
+          child: PlaidButton(),
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class PlaidButton extends StatelessWidget {
+  static const platform = MethodChannel('plaidChannel');
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  const PlaidButton({super.key});
 
-class _MyHomePageState extends State<MyHomePage> {
-  var channel = const MethodChannel("customeplaidlink");
-
-  showtost() {
-    channel.invokeMethod("showToast");
+  Future<void> _openPlaidLink() async {
+    try {
+      await platform.invokeMethod('openPlaidLink',
+          {'linkToken': 'public-sandbox-0b88618b-cd99-48ea-ad08-538bf370172c'});
+    } on PlatformException catch (e) {
+      print("Failed to open Plaid Link: ${e.message}");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-          child: ElevatedButton(
-              onPressed: showtost, child: const Text("showthing"))),
+    return ElevatedButton(
+      onPressed: _openPlaidLink,
+      child: const Text('Open Plaid Link'),
     );
   }
 }
