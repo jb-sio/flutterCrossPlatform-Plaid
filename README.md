@@ -92,24 +92,26 @@ android.nonFinalResIds=false` Have no idea why and what these do but it didn't t
       W/cr_media(32485): registerBluetoothIntentsIfNeeded: Requires BLUETOOTH permission
       W/le.flutterplaid(32485): Accessing hidden field
    ```
-4. Added to "AndroidManifest.xml"
+4. Changed and Updates
 
-   ```xml
-   <uses-permission android:name="android.permission.INTERNET"/>
-   <uses-permission android:name="android.permission.BLUETOOTH"/>
-   <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-   <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
-   <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
-   ...
-   <application
-   ...
-   android:enableOnBackInvokedCallback="true">
-   ```
+   - "AndroidManifest.xml"
 
-   and to "main.dart"
+     ```xml
+     <uses-permission android:name="android.permission.INTERNET"/>
+     <uses-permission android:name="android.permission.BLUETOOTH"/>
+     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+     <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+     ...
+     <application
+     ...
+     android:enableOnBackInvokedCallback="true">
+     ```
 
-   ```dart
-   import 'package:permission_handler/permission_handler.dart';
+   - "main.dart"
+
+     ```dart
+     import 'package:permission_handler/permission_handler.dart';
 
      Future<void> requestPermissions() async {
      final statusBluetoothConnect = await Permission.bluetoothConnect.request();
@@ -122,14 +124,16 @@ android.nonFinalResIds=false` Have no idea why and what these do but it didn't t
         print("Bluetooth permissions denied");
      }
      }
-   ```
+     ```
 
-   and to "pubspec.yaml"
+   - "pubspec.yaml"
 
-   ```yaml
-   permission_handler: ^11.3.1
-   ```
+     ```yaml
+     permission_handler: ^11.3.1
+     ```
 
-   Manually changed the 'compileSdk' and 'targetSdk' version to 34 in App level 'build.gradle'
+   - "build.gradle"
+
+     Manually changed the 'compileSdk' and 'targetSdk' version to 34 in App level 'build.gradle'
 
 5. This fixed the bluetooth error. Yet have the Audio, Video Codec error, Here's the Error Logs [Flutter-Kotlin Plaid Error Log](https://docs.google.com/document/d/1FrRHykvOMjvO2Dy0DY7uf2G49EjuRuKQABAe36RZ-II/edit?usp=sharing)
