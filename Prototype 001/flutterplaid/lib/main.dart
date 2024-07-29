@@ -2,8 +2,26 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-void main() => runApp(const MyApp());
+Future<void> requestPermissions() async {
+  final statusBluetoothConnect = await Permission.bluetoothConnect.request();
+  final statusBluetoothScan = await Permission.bluetoothScan.request();
+
+  // Check if permissions are granted
+  if (statusBluetoothConnect.isGranted && statusBluetoothScan.isGranted) {
+    print("Bluetooth permissions granted");
+  } else {
+    print("Bluetooth permissions denied");
+  }
+}
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  requestPermissions().then((_) {
+    runApp(const MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,7 +47,7 @@ class PlaidButton extends StatelessWidget {
   Future<void> _openPlaidLink() async {
     try {
       await platform.invokeMethod('openPlaidLink',
-          {'linkToken': 'public-sandbox-0b88618b-cd99-48ea-ad08-538bf370172c'});
+          {'linkToken': 'public-sandbox-37a6dd83-a347-43ea-bf1e-62b4237d5f9a'});
     } on PlatformException catch (e) {
       print("Failed to open Plaid Link: ${e.message}");
     }

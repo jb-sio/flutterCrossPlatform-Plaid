@@ -45,9 +45,11 @@ Research and Development repository for Flutter's Cross-Platform feature with Pl
 
 1. Adding Dependency Directly to flutter. Normally 'pubspec.yaml' would do it automatically since we've added the flutter library but since we're adding Kotlin directly to the code we've gotta manually add dependencies to the project.
 
-`dependencies {
-   implementation 'com.plaid.link:sdk-core:4.5.1'
-   }`
+   ```java
+   dependencies {
+      implementation 'com.plaid.link:sdk-core:4.5.1'
+   }
+   ```
 
 directly to "android\app\build.gradle"
 
@@ -78,3 +80,56 @@ android.nonFinalResIds=false` Have no idea why and what these do but it didn't t
 ### Commit-C006: "pubspec.yaml fixes"
 
 1. Ran "flutter pub get" and got some files fixed and new files generated.
+
+### Commit-C007: "Plaid BugFixes-B01"
+
+1. Hoping the bugs i'll encounter will be in two digit. Dont want to change the bug reference number to be three digit.
+2. As of last commit the Plaid UI worked but had some internal problems.
+3. The first I was able to recognize was:
+   ```log
+      W/cr_media( 4564): BLUETOOTH_CONNECT permission is missing.
+      W/cr_media( 4564): getBluetoothAdapter() requires BLUETOOTH permission
+      W/cr_media(32485): registerBluetoothIntentsIfNeeded: Requires BLUETOOTH permission
+      W/le.flutterplaid(32485): Accessing hidden field
+   ```
+4. Added to "AndroidManifest.xml"
+
+   ```xml
+   <uses-permission android:name="android.permission.INTERNET"/>
+   <uses-permission android:name="android.permission.BLUETOOTH"/>
+   <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+   <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+   <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+   ...
+   <application
+   ...
+   android:enableOnBackInvokedCallback="true">
+   ```
+
+   and to "main.dart"
+
+   ```dart
+   import 'package:permission_handler/permission_handler.dart';
+
+     Future<void> requestPermissions() async {
+     final statusBluetoothConnect = await Permission.bluetoothConnect.request();
+     final statusBluetoothScan = await Permission.bluetoothScan.request();
+
+     // Check if permissions are granted
+     if (statusBluetoothConnect.isGranted && statusBluetoothScan.isGranted) {
+        print("Bluetooth permissions granted");
+     } else {
+        print("Bluetooth permissions denied");
+     }
+     }
+   ```
+
+   and to "pubspec.yaml"
+
+   ```yaml
+   permission_handler: ^11.3.1
+   ```
+
+   Manually changed the 'compileSdk' and 'targetSdk' version to 34 in App level 'build.gradle'
+
+5. This fixed the bluetooth error. Yet have the Audio, Video Codec error, Here's the Error Logs [Flutter-Kotlin Plaid Error Log](https://docs.google.com/document/d/1FrRHykvOMjvO2Dy0DY7uf2G49EjuRuKQABAe36RZ-II/edit?usp=sharing)
