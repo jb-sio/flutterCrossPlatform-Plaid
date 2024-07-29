@@ -45,7 +45,7 @@ Research and Development repository for Flutter's Cross-Platform feature with Pl
 
 1. Adding Dependency Directly to flutter. Normally 'pubspec.yaml' would do it automatically since we've added the flutter library but since we're adding Kotlin directly to the code we've gotta manually add dependencies to the project.
 
-   ```java
+   ```gradle
    dependencies {
       implementation 'com.plaid.link:sdk-core:4.5.1'
    }
@@ -94,7 +94,7 @@ android.nonFinalResIds=false` Have no idea why and what these do but it didn't t
    ```
 4. Changed and Updates
 
-   - "AndroidManifest.xml"
+   - ### "AndroidManifest.xml"
 
      ```xml
      <uses-permission android:name="android.permission.INTERNET"/>
@@ -108,7 +108,7 @@ android.nonFinalResIds=false` Have no idea why and what these do but it didn't t
      android:enableOnBackInvokedCallback="true">
      ```
 
-   - "main.dart"
+   - ### "main.dart"
 
      ```dart
      import 'package:permission_handler/permission_handler.dart';
@@ -126,14 +126,26 @@ android.nonFinalResIds=false` Have no idea why and what these do but it didn't t
      }
      ```
 
-   - "pubspec.yaml"
+   - ### "pubspec.yaml"
 
      ```yaml
      permission_handler: ^11.3.1
      ```
 
-   - "build.gradle"
+   - ### "build.gradle"
 
-     Manually changed the 'compileSdk' and 'targetSdk' version to 34 in App level 'build.gradle'
+     Manually changed the 'compileSdk' and 'targetSdk' version to `34` in App level 'build.gradle'
+
+     ```gradle
+      android {
+            ...
+         compileSdk = 34
+            ...
+         defaultConfig {
+            targetSdk = 34
+         }
+      ...
+      }
+     ```
 
 5. This fixed the bluetooth error. Yet have the Audio, Video Codec error, Here's the Error Logs [Flutter-Kotlin Plaid Error Log](https://docs.google.com/document/d/1FrRHykvOMjvO2Dy0DY7uf2G49EjuRuKQABAe36RZ-II/edit?usp=sharing)
