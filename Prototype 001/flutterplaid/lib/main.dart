@@ -47,7 +47,7 @@ class PlaidButton extends StatelessWidget {
   Future<void> _openPlaidLink() async {
     try {
       await platform.invokeMethod('openPlaidLink',
-          {'linkToken': 'public-sandbox-37a6dd83-a347-43ea-bf1e-62b4237d5f9a'});
+          {'linkToken': 'link-sandbox-ee5abb60-8c31-47ef-9e69-856fa129a01e'});
     } on PlatformException catch (e) {
       print("Failed to open Plaid Link: ${e.message}");
     }
